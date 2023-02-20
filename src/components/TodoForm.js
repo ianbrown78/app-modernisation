@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { 
     Form,
     FormGroup,
@@ -10,6 +10,7 @@ import {
 
 function TodoForm() {
     const params = useParams();
+    const navigate = useNavigate();
     const [id, setId] = useState();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
@@ -28,17 +29,18 @@ function TodoForm() {
         }
     }, []);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (id !== undefined) {
             fetch('/todo/' + id, { method: 'PUT' } )
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     setId(data.id);
                     setTitle(data.title);
                     setDescription(data.description);
                     setComplete(data.complete);
                 });
+            navigate("/");
         } else {
             const reqOpts = {
                 method: 'POST',
@@ -48,12 +50,12 @@ function TodoForm() {
             fetch('/todos', reqOpts)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     setId(data.id);
                     setTitle(data.title);
                     setDescription(data.description);
                     setComplete(data.complete);
                 });
+            navigate("/");
         }
     };
 
@@ -96,7 +98,7 @@ function TodoForm() {
                     Complete?
                 </Label>
             </FormGroup>
-            <Button className="btn btn-primary mt-1" type="submit" onClick={() => handleSubmit()}>Save</Button>
+            <Button className="btn btn-primary mt-1" type="submit" onClick={(e) => handleSubmit(e)}>Save</Button>
         </Form>
     )
 }
