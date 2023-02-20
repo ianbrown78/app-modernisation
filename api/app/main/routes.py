@@ -42,6 +42,7 @@ def update(todo_id):
 @bp.route("/todo/<int:todo_id>", methods=["DELETE"])
 def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
+    print(todo)
     db.session.delete(todo)
     db.session.commit()
-    return jsonify({'success'})
+    return jsonify('success')
