@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Button } from "reactstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBinoculars, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBinoculars, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Todos() {
     const [todos, setTodos] = useState(0);
@@ -24,12 +24,10 @@ function Todos() {
 
     const handleDeleteTodo = (id) => {
         var list = todos;
+        var newList;
         fetch('/todo/' + id, { method: 'DELETE' })
-            .then(res => res.json())
-            .then(data => {
-                list.splice(id, 1);
-            });
-        setTodos(list);
+            .then(res => res.json());
+        window.location.reload(false);
     }
 
     const renderTodos = (todos) => {
