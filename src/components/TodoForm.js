@@ -7,6 +7,7 @@ import {
     Input,
     Button,
 } from "reactstrap";
+import { toast } from "react-hot-toast";
 
 function TodoForm() {
     const params = useParams();
@@ -39,8 +40,8 @@ function TodoForm() {
                     setTitle(data.title);
                     setDescription(data.description);
                     setComplete(data.complete);
-                });
-            navigate("/");
+                })
+                .then(toast.success('Todo updated successfully.'));
         } else {
             const reqOpts = {
                 method: 'POST',
@@ -54,9 +55,12 @@ function TodoForm() {
                     setTitle(data.title);
                     setDescription(data.description);
                     setComplete(data.complete);
-                });
-            navigate("/");
+                })
+                .then(toast.success('Todo created successfully.'));
         }
+        setTimeout(() => {
+            navigate("/")
+        }, 2500);
     };
 
     return (

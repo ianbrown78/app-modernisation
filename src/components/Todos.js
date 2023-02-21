@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBinoculars, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { toast } from "react-hot-toast";
 
 function Todos() {
     const [todos, setTodos] = useState(0);
@@ -23,11 +24,17 @@ function Todos() {
     }
 
     const handleDeleteTodo = (id) => {
-        var list = todos;
-        var newList;
         fetch('/todo/' + id, { method: 'DELETE' })
-            .then(res => res.json());
-        window.location.reload(false);
+            .then((response) => {
+                if (response.ok) {
+                    toast.success('Todo deleted successfully.');
+                } else {
+                    toast.error('Error deleting Todo item.');
+                }
+            });
+        setTimeout(() => {
+            window.location.reload(false)
+        }, 2500);
     }
 
     const renderTodos = (todos) => {
