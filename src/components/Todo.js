@@ -11,6 +11,7 @@ function Todo() {
     const params = useParams();
     const [todo, setTodo] = useState();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         console.log(params.id);
         fetch('/todo/' + params.id)
