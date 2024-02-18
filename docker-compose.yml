@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: todo-api
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todo-app
+    ports:
+      - "3000:3000"

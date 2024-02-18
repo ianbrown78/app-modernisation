@@ -26,5 +26,3 @@ yarn-error.log*
 venv
 __pycache__
 instance
-db.sqlite
-.flaskenv
